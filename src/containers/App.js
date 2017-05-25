@@ -1,19 +1,21 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
+import { Route, Redirect, Switch } from "react-router-dom";
 
-class App extends Component {
+import Header from "./Header";
+import List from "../routes/List.js";
+import Article from "../routes/Article";
+
+export default class App extends Component {
   render() {
     return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+      <div>
+        <Header />
+        <Switch>
+          <Route exact path="/" component={List} />
+          <Route path="/:id" component={Article} />
+          <Redirect to="/" />
+        </Switch>
       </div>
     );
   }
 }
-
-export default App;
