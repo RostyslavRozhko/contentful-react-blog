@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 
 import Markdown from "react-markdown";
 
@@ -12,21 +13,30 @@ import {
 } from "material-ui/Card";
 import FlatButton from "material-ui/FlatButton";
 
-export default class ListItem extends Component {
+import { addReadLater, removeReadLater } from "../actions";
+
+class ListItem extends Component {
   constructor(props) {
     super(props);
 
     this.state = { readLater: false };
-
-    this.setReadLater = this.setReadLater.bind(this);
   }
 
-  setReadLater() {
+  setReadLater = () => {
     const readLater = this.state.readLater;
+    const { addReadLater, removeReadLater } = this.props;
+    const id = this.props.post.id;
+
     this.setState({
       readLater: !readLater
     });
-  }
+
+    if (!readLater) {
+      addReadLater(id);
+    } else {
+      removeReadLater(id);
+    }
+  };
 
   render() {
     const { id, title, date, desc, img } = this.props.post;
@@ -41,20 +51,33 @@ export default class ListItem extends Component {
             <img src={img.fields.file.url} alt="img" />
           </CardMedia>
         </Link>
-        <Link to={id}>
-          <CardText style={{ fontSize: "18px" }}>
+        <CardText style={{ fontSize: "18px" }}>
+          <Link to={id}>
             <Markdown source={desc} />
-          </CardText>
-        </Link>
+          </Link>
+        </CardText>
         <CardActions style={{ display: "flex", justifyContent: "flex-end" }}>
           <FlatButton
             label="Read later"
             backgroundColor={this.state.readLater ? "#F44336" : "transparent"}
             hoverColor={this.state.readLater ? "#F44336" : "transparent"}
-            onClick={this.setReadLater}
+            onTouchTap={this.setReadLater}
           />
         </CardActions>
       </Card>
     );
   }
 }
+
+const mapDispatchToProps = dispatch => {
+  return {
+    addReadLater: id => {
+      dispatch(addReadLater(id));
+    },
+    removeReadLater: id => {
+      dispatch(removeReadLater(id));
+    }
+  };
+};
+
+export default connect(null, mapDispatchToProps)(ListItem);

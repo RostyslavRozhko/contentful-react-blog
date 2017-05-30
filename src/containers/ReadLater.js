@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { requestPosts } from "../actions";
-import { getPosts } from "../selectors";
+import { getReadLaterPosts } from "../selectors";
 
-import ListItem from "./ListItem";
+import ReadLaterItem from "./ReadLaterItem";
 
-class List extends Component {
+class ReadLater extends Component {
   componentDidMount() {
     this.props.fetch();
   }
@@ -19,7 +19,9 @@ class List extends Component {
           alignItems: "center"
         }}
       >
-        {this.props.posts.map(post => <ListItem key={post.id} post={post} />)}
+        {this.props.posts.map(post => (
+          <ReadLaterItem key={post.id} post={post} />
+        ))}
       </div>
     );
   }
@@ -27,7 +29,7 @@ class List extends Component {
 
 const mapStateToProps = state => {
   return {
-    posts: getPosts(state)
+    posts: getReadLaterPosts(state)
   };
 };
 
@@ -39,4 +41,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(List);
+export default connect(mapStateToProps, mapDispatchToProps)(ReadLater);

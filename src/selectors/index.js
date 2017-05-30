@@ -6,3 +6,13 @@ export const getPosts = state => {
     return [];
   }
 };
+
+export const getReadLaterPosts = state => {
+  if (state.readLater) {
+    const result = state.readLater;
+    let s = result.map(id => state.posts[id]);
+    return s;
+  } else {
+    return [];
+  }
+};
