@@ -5,7 +5,7 @@ const loadArticleContainer = () => import("../containers/Article");
 
 class Article extends Component {
   render() {
-    return <Bundle load={loadArticleContainer} />;
+    return <Bundle load={loadArticleContainer} {...this.props} />;
   }
 }
 

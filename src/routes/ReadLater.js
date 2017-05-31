@@ -5,7 +5,7 @@ const loadReadLaterContainer = () => import("../containers/ReadLater");
 
 class ReadLater extends Component {
   render() {
-    return <Bundle load={loadReadLaterContainer} />;
+    return <Bundle load={loadReadLaterContainer} {...this.props} />;
   }
 }
 

@@ -19,6 +19,7 @@ export default class Article extends Component {
     const { title, date, desc, img } = this.state;
     return (
       <div>
+        <div>{this.props.match.url}</div>
         <div>{title}</div>
         <div>{date}</div>
         <img src={img} alt="alt" />

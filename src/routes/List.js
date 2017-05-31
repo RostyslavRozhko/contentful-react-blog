@@ -5,7 +5,7 @@ const loadListContainer = () => import("../containers/List");
 
 class List extends Component {
   render() {
-    return <Bundle load={loadListContainer} />;
+    return <Bundle load={loadListContainer} {...this.props} />;
   }
 }
 
