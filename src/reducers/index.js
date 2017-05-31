@@ -20,7 +20,7 @@ const reducer = handleActions(
   {
     posts: {},
     result: [],
-    readLater: ["second"]
+    readLater: []
   }
 );
 
